@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">EuCurrencyConverter</string>
+    <string name="eu_currency_coverter">EU CURRENCY\nCONVERTER</string>
+    <string name="country_name">Country Name:</string>
+    <string name="currency_amount">Currency Amount (Euro)</string>
+    <string name="vat_rates">Vat Rates:</string>
+    <string name="original_amount">Original Amount =</string>
+    <string name="not_set">0.0</string>
+    <string name="tax">Tax =</string>
+    <string name="add">(+)</string>
+    <string name="total">Total =</string>
+    <string name="nb">NB: This calculation is based on data fetched from server</string>
+    <string name="standard">Standard (%1$.1f %%)</string>
+    <string name="parking">Parking (%1$.1f %%)</string>
+    <string name="reduced2">Reduced2 (%1$.1f %%)</string>
+    <string name="reduced1">Reduced1 (%1$.1f %%)</string>
+    <string name="reduced">Reduced (%1$.1f %%)</string>
+    <string name="super_reduced">Super reduced (%1$.1f %%)</string>
+</resources>
