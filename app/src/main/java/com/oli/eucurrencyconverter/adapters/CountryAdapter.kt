@@ -37,7 +37,7 @@ class CountryAdapter(context: Context, val layoutResourceId: Int, val countryLis
 
         val tv:TextView = view.findViewById(R.id.tv)
         val iv:ImageView = view.findViewById(R.id.iv_spinner)
-        tv.text = rate.getName()
+        tv.text = rate.name
 
         if(isDropdown)
             iv.visibility = View.GONE

@@ -8,14 +8,12 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.oli.eucurrencyconverter.adapters.CountryAdapter
 import com.oli.eucurrencyconverter.models.Rate
 import com.oli.eucurrencyconverter.models.Rates
 import com.oli.eucurrencyconverter.models.VatResponseModel
 import com.oli.eucurrencyconverter.rest.ApiClient
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 radioGroup.clearCheck()
                 radioGroup.check(R.id.rbStandard)
-                setVatData(rate[position].getPeriods()!!.get(0).getRates())
+                setVatData(rate[position].periods!!.get(0).rates)
             }
         }
 
@@ -97,47 +95,47 @@ class MainActivity : AppCompatActivity() {
 
     fun setVatData(rates: Rates) {
 
-        if (rates.getStandard() == null)
+        if (rates.standard == null)
             rbStandard.visibility = View.GONE
         else {
             rbStandard.visibility = View.VISIBLE
-            rbStandard.text = getString(R.string.standard, rates.getStandard())
+            rbStandard.text = getString(R.string.standard, rates.standard)
         }
-        if (rates.getSuperReduced() == null)
+        if (rates.superReduced == null)
             rbSuperReduced.visibility = View.GONE
         else {
             rbSuperReduced.visibility = View.VISIBLE
-            rbSuperReduced.text = getString(R.string.super_reduced, rates.getSuperReduced())
+            rbSuperReduced.text = getString(R.string.super_reduced, rates.superReduced)
         }
-        if (rates.getReduced() == null)
+        if (rates.reduced == null)
             rbReduced.visibility = View.GONE
         else {
             rbReduced.visibility = View.VISIBLE
-            rbReduced.text = getString(R.string.reduced, rates.getReduced())
+            rbReduced.text = getString(R.string.reduced, rates.reduced)
         }
-        if (rates.getReduced1() == null)
+        if (rates.reduced1 == null)
             rbReduced1.visibility = View.GONE
         else {
             rbReduced1.visibility = View.VISIBLE
-            rbReduced1.text = getString(R.string.reduced1, rates.getReduced1())
+            rbReduced1.text = getString(R.string.reduced1, rates.reduced1)
         }
-        if (rates.getReduced2() == null)
+        if (rates.reduced2 == null)
             rbReduced2.visibility = View.GONE
         else {
             rbReduced2.visibility = View.VISIBLE
-            rbReduced2.text = getString(R.string.reduced2, rates.getReduced2())
+            rbReduced2.text = getString(R.string.reduced2, rates.reduced2)
         }
-        if (rates.getParking() == null)
+        if (rates.parking == null)
             rbParking.visibility = View.GONE
         else {
             rbParking.visibility = View.VISIBLE
-            rbParking.text = getString(R.string.parking, rates.getParking())
+            rbParking.text = getString(R.string.parking, rates.parking)
         }
     }
 
     fun calculateAmount(value: Double) {
 
-        val vatRates: Rates = rate[spinnerCountry.selectedItemPosition].getPeriods()!!.get(0).getRates()
+        val vatRates: Rates = rate[spinnerCountry.selectedItemPosition].periods!!.get(0).rates
 
         tvOriginalAmount.text = value.toString()
 
@@ -145,22 +143,22 @@ class MainActivity : AppCompatActivity() {
 
         when (radioGroup.checkedRadioButtonId) {
             R.id.rbStandard -> {
-                vat = value * (vatRates.getStandard()!!.div(100))
+                vat = value * (vatRates.standard!!.div(100))
             }
             R.id.rbSuperReduced -> {
-                vat = value * (vatRates.getSuperReduced()!!.div(100))
+                vat = value * (vatRates.superReduced!!.div(100))
             }
             R.id.rbReduced -> {
-                vat = value * (vatRates.getReduced()!!.div(100))
+                vat = value * (vatRates.reduced!!.div(100))
             }
             R.id.rbReduced1 -> {
-                vat = value * (vatRates.getReduced1()!!.div(100))
+                vat = value * (vatRates.reduced1!!.div(100))
             }
             R.id.rbReduced2 -> {
-                vat = value * (vatRates.getReduced2()!!.div(100))
+                vat = value * (vatRates.reduced2!!.div(100))
             }
             R.id.rbParking -> {
-                vat = value * (vatRates.getParking()!!.div(100))
+                vat = value * (vatRates.parking!!.div(100))
             }
         }
 
@@ -182,27 +180,27 @@ class MainActivity : AppCompatActivity() {
 
         ApiClient.instance.getVatData("https://jsonvat.com/")
             .enqueue(object : Callback<VatResponseModel> {
-            override fun onFailure(call: Call<VatResponseModel>, t: Throwable) {
-                progressLayout.visibility = View.GONE
-                Log.d(tag, t.message)
-                showSnackBar(t.message.toString())
-            }
+                override fun onFailure(call: Call<VatResponseModel>, t: Throwable) {
+                    progressLayout.visibility = View.GONE
+                    Log.d(tag, t.message)
+                    showSnackBar(t.message.toString())
+                }
 
-            override fun onResponse(call: Call<VatResponseModel>, response: Response<VatResponseModel>) {
+                override fun onResponse(call: Call<VatResponseModel>, response: Response<VatResponseModel>) {
 
-                progressLayout.visibility = View.GONE
+                    progressLayout.visibility = View.GONE
 
-                Log.d(
-                    tag, "fetchDataFromServer isSuccessful: " +
-                            "${response.isSuccessful} code: ${response.code()}"
-                )
+                    Log.d(
+                        tag, "fetchDataFromServer isSuccessful: " +
+                                "${response.isSuccessful} code: ${response.code()}"
+                    )
 
-                rate.addAll(response.body()!!.getRates())
-                adapter.notifyDataSetChanged()
+                    rate.addAll(response.body()?.rates!!)
+                    adapter.notifyDataSetChanged()
 
-            }
+                }
 
-        })
+            })
     }
 
     private fun showSnackBar(msg: String) {
