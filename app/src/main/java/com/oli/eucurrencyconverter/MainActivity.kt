@@ -15,6 +15,7 @@ import com.oli.eucurrencyconverter.models.Rates
 import com.oli.eucurrencyconverter.models.VatResponseModel
 import com.oli.eucurrencyconverter.rest.ApiClient
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                radioGroup.clearCheck()
                 radioGroup.check(R.id.rbStandard)
                 setVatData(rate[position].getPeriods()!!.get(0).getRates())
             }
