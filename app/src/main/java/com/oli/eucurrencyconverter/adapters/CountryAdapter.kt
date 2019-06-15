@@ -10,8 +10,8 @@ import android.widget.TextView
 import com.oli.eucurrencyconverter.R
 import com.oli.eucurrencyconverter.models.Rate
 
-class CountryAdapter(context: Context, val layoutResourceId: Int, val countryList: List<Rate>)
-    : ArrayAdapter<Rate>(context, layoutResourceId, countryList) {
+class CountryAdapter(context: Context, private val layoutResourceId: Int, private val countryList: List<Rate>) :
+    ArrayAdapter<Rate>(context, layoutResourceId, countryList) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return createViewFromResource(convertView, parent, position, false)
@@ -25,21 +25,23 @@ class CountryAdapter(context: Context, val layoutResourceId: Int, val countryLis
         return createViewFromResource(convertView, parent, position, true)
     }
 
-    private fun createViewFromResource(convertView: View?, parent: ViewGroup,
-                                       position: Int, isDropdown: Boolean): View{
+    private fun createViewFromResource(
+        convertView: View?, parent: ViewGroup,
+        position: Int, isDropdown: Boolean
+    ): View {
 
         val context = parent.context
 
-        val view = convertView?: LayoutInflater.from(context)
+        val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.spinner_item, parent, false)
 
-        val rate = countryList.get(position)
+        val rate = countryList[position]
 
-        val tv:TextView = view.findViewById(R.id.tv)
-        val iv:ImageView = view.findViewById(R.id.iv_spinner)
+        val tv: TextView = view.findViewById(R.id.tv)
+        val iv: ImageView = view.findViewById(R.id.iv_spinner)
         tv.text = rate.name
 
-        if(isDropdown)
+        if (isDropdown)
             iv.visibility = View.GONE
         else iv.visibility = View.VISIBLE
 

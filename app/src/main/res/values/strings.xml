@@ -10,10 +10,10 @@
     <string name="add">(+)</string>
     <string name="total">Total =</string>
     <string name="nb">NB: This calculation is based on data fetched from server</string>
-    <string name="standard">Standard (%1$.1f %%)</string>
-    <string name="parking">Parking (%1$.1f %%)</string>
-    <string name="reduced2">Reduced2 (%1$.1f %%)</string>
-    <string name="reduced1">Reduced1 (%1$.1f %%)</string>
-    <string name="reduced">Reduced (%1$.1f %%)</string>
-    <string name="super_reduced">Super reduced (%1$.1f %%)</string>
+    <string name="standard">standard (%1$.1f %%)</string>
+    <string name="parking">parking (%1$.1f %%)</string>
+    <string name="reduced2">reduced2 (%1$.1f %%)</string>
+    <string name="reduced1">reduced1 (%1$.1f %%)</string>
+    <string name="reduced">reduced (%1$.1f %%)</string>
+    <string name="super_reduced">super_reduced (%1$.1f %%)</string>
 </resources>

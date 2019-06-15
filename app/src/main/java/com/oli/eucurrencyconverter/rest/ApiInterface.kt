@@ -5,8 +5,8 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Url
 
-interface ApiInterface{
+interface ApiInterface {
 
     @GET()
-    fun getVatData(@Url url:String):Call<VatResponseModel>
+    fun getVatData(@Url url: String): Call<VatResponseModel>
 }

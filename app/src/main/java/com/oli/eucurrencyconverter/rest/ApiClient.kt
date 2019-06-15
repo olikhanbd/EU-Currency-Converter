@@ -9,7 +9,7 @@ object ApiClient {
     private const val BASE_URL = "https://jsonvat.com/"
 
     private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor{chain ->
+        .addInterceptor { chain ->
             val original = chain.request()
 
             val requestBuilder = original.newBuilder()
@@ -18,7 +18,7 @@ object ApiClient {
 
             val request = requestBuilder.build()
             chain.proceed(request)
-    }.build()
+        }.build()
 
     val instance: ApiInterface by lazy {
         val retrofit = Retrofit.Builder()
